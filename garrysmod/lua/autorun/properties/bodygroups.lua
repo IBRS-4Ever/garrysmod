@@ -1,8 +1,6 @@
 
 AddCSLuaFile()
 
-local TranslateBodygroup = CreateClientConVar( "gmod_translate_bodygroups", "1", true, false, "If enabled, supported bodygroup's name will be translated into supported language." )
-
 properties.Add( "bodygroups", {
 	MenuLabel = "#bodygroups",
 	Order = 600,
@@ -62,9 +60,7 @@ properties.Add( "bodygroups", {
 				local opposite = 1
 				if ( current == opposite ) then opposite = 0 end
 
-				local bodygroup_name
-				if !TranslateBodygroup:GetBool() or language.GetPhrase( "bodygroup."..string.lower(v.name) ) == "bodygroup."..string.lower(v.name) then bodygroup_name = string.NiceName(v.name) else bodygroup_name = language.GetPhrase( "bodygroup."..string.lower(v.name) ) end
-				local opt = submenu:AddOption( bodygroup_name )
+				local opt = submenu:AddOption( string.NiceName( v.name ) )
 				opt:SetChecked( current == 1 )
 				opt:SetIsCheckable( true )
 				opt.OnChecked = function( s, checked ) self:SetBodyGroup( ent, v.id, checked and 1 or 0 ) end
@@ -73,9 +69,8 @@ properties.Add( "bodygroups", {
 			-- More than 2 options we add our own submenu
 			--
 			else
-				
-				local groups
-				if !TranslateBodygroup:GetBool() or language.GetPhrase( "bodygroup."..string.lower(v.name) ) == "bodygroup."..string.lower(v.name) then groups = submenu:AddSubMenu( string.NiceName( v.name ) ) else groups = submenu:AddSubMenu( language.GetPhrase( "bodygroup."..string.lower(v.name) ) ) end
+
+				local groups = submenu:AddSubMenu( string.NiceName( v.name ) )
 
 				for i = 1, v.num do
 					local modelname = "Model #" .. i
@@ -86,8 +81,7 @@ properties.Add( "bodygroups", {
 					modelname = string.StripExtension( modelname )
 					modelname = string.GetFileFromFilename( modelname )
 				
-					local opt
-					if !TranslateBodygroup:GetBool() or language.GetPhrase( "bodygroup."..string.lower(modelname) ) == "bodygroup."..string.lower(modelname) then opt = groups:AddOption( string.NiceName( modelname ) ) else opt = groups:AddOption( language.GetPhrase( "bodygroup."..string.lower(modelname) ) ) end
+					local opt = groups:AddOption( string.NiceName( modelname ) )
 					opt:SetRadio( true )
 					opt:SetChecked( target:GetBodygroup( v.id ) == i - 1 )
 					opt:SetIsCheckable( true )
