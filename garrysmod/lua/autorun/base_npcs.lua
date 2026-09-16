@@ -40,7 +40,7 @@ AddNPC( {
 AddNPC( {
 	Class = "npc_dog",
 	Category = Category,
-	SubCategory = SubCategory,
+	SubCategory = SubCategory
 } )
 
 AddNPC( {
@@ -53,7 +53,7 @@ AddNPC( {
 AddNPC( {
 	Class = "npc_gman",
 	Category = Category,
-	SubCategory = SubCategory,
+	SubCategory = SubCategory
 } )
 
 -- Did you know that this MAN can shoot annabelle like he's been doing it his whole life?
